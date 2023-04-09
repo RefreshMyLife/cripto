@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import CoinItem from '../components/CoinItem/CoinItem';
 import Coin from './Coin';
 import CoinsService from '../services/CoinServise';
+import Pagination from './../components/Paginaton/Pagination';
 
 const Home = () => {
     const [coins, setCoins] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+
     let allCoins = {};
     const fetchAllCoins = async () => {
         setCoins(await CoinsService.fetchCoins());
@@ -13,12 +16,14 @@ const Home = () => {
     };
     useEffect(() => {
         fetchAllCoins();
-        //@ts-ignore
-
-        console.log(coins, 'coins');
     }, []);
 
-    console.log(coins);
+    const allPage = Math.ceil(coins.length / 10);
+    const lastCoinIndex = currentPage * 10;
+    const firstCoinIndex = lastCoinIndex - 10;
+    const currentCoins = coins.slice(firstCoinIndex, lastCoinIndex);
+
+    console.log(firstCoinIndex, lastCoinIndex, currentCoins);
     return (
         <div className="container">
             <div>
@@ -33,14 +38,20 @@ const Home = () => {
 
                 {
                     // @ts-ignore
-                    coins?.map((coin: any) => {
-                        return (
-                            <Link to={`/coin/${coin.id}`} key={coin.id}>
-                                <CoinItem coin={coin} />
-                            </Link>
-                        );
-                    })
+                    coins &&
+                        currentCoins?.map((coin: any) => {
+                            return (
+                                <Link to={`/coin/${coin.id}`} key={coin.id}>
+                                    <CoinItem coin={coin} />
+                                </Link>
+                            );
+                        })
                 }
+                <Pagination
+                    allPages={allPage}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                />
             </div>
         </div>
     );

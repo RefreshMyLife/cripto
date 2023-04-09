@@ -1,0 +1,39 @@
+.pagination__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    font-weight: 500;
+    font-size: 15px;
+
+    .link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #26272b;
+
+        height: 40px;
+        width: 40px;
+        text-decoration: none;
+        transition: background-color 0.2s;
+        border: 1px solid #ddd;
+        cursor: pointer;
+        &:hover:not(.active) {
+            border-color: rgb(162, 162, 246);
+            background: linear-gradient(
+                rgba(rgb(162, 162, 246), 0.2),
+                rgba(rgb(162, 162, 246), 0.3)
+            );
+            color: #26272b;
+        }
+    }
+    .active {
+        border-color: rgb(162, 162, 246);
+        background: #26272b;
+        color: rgb(162, 162, 246);
+    }
+    .disabled {
+        opacity: 0.2;
+    }
+}
