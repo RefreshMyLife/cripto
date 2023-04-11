@@ -1,4 +1,3 @@
-import React from 'react';
 import './CointItem.module.scss';
 import styles from './CointItem.module.scss';
 const CoinItem = ({ coin }: any) => {

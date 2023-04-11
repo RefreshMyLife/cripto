@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 const Pagination = ({ allPages, currentPage, setCurrentPage }) => {
     const getBtn = () => {
         const btns = [];
+
         for (let index = 1; index <= allPages; index++) {
             btns.push(
                 <Link
@@ -15,6 +16,7 @@ const Pagination = ({ allPages, currentPage, setCurrentPage }) => {
                 </Link>,
             );
         }
+
         return btns;
     };
     return (
