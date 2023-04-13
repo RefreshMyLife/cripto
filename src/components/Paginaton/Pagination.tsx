@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from './Pagination.module.scss';
 import { Link } from 'react-router-dom';
-const Pagination = ({ allPages, currentPage, setCurrentPage }) => {
+const Pagination: FC<{
+    allPages: number;
+    currentPage: number;
+    setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+}> = ({ allPages, currentPage, setCurrentPage }) => {
     const getBtn = () => {
         const btns = [];
 
