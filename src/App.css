@@ -79,10 +79,10 @@ img {
     }
 }
 @media screen and (max-width: 720px) {
-    .hide-tablet {
-        display: none;
+    .hide-table {
+        display: none !important;
     }
-    .coin_row {
+    .heading {
         grid-template-columns: repeat(4, 1fr);
     }
 }
@@ -90,6 +90,7 @@ img {
     .hide-mobile {
         display: none;
     }
+
     .heading {
         grid-template-columns: repeat(3, 1fr);
     }

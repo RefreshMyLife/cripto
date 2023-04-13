@@ -88,6 +88,9 @@
     .hide__mobile {
         display: none;
     }
+    .coin_row {
+        grid-template-columns: repeat(3, 1fr);
+    }
     .heading {
         grid-template-columns: repeat(3, 1fr);
     }
