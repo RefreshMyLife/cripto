@@ -15,50 +15,30 @@ import {
 } from 'chart.js';
 
 import { Line } from 'react-chartjs-2';
+import AddModal from '../../components/AddModal/AddModal';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 const Coin = () => {
     const [coin, setCoin] = useState<ICoin>();
     const [coinHistory, setCoinHistory] = useState<ICoinHistory[]>();
     const { coinId } = useParams();
+    const [activeModal, setActiveModal] = useState(false);
 
     const fetchCoin = async () => {
         coinId && setCoin(await CoinsService.fetchCoinById(coinId));
     };
     const fetchHistory = async (time: string) => {
         coinId && setCoinHistory(await CoinsService.fetcHistoriCoin(coinId, time));
-        console.log(coinHistory);
     };
     useEffect(() => {
         fetchCoin();
         fetchHistory('d1');
     }, []);
 
-    const options = {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top' as const,
-            },
-            title: {
-                display: true,
-                text: 'Chart.js Line Chart',
-            },
-        },
-    };
+    function handleButtonClick(): void {
+        setActiveModal(true);
+    }
 
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-    const data = {
-        labels,
-        datasets: [
-            {
-                label: 'Dataset 1',
-                data: coinHistory?.map((coin) => coin),
-                borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            },
-        ],
-    };
     return coin ? (
         <div>
             <div>
@@ -69,6 +49,9 @@ const Coin = () => {
                     <div className={styles.content}>
                         <div className={styles.rank}>
                             <span className={styles.rank__btn}>Rank # {coin.rank}</span>
+                            <button className={styles.btn} onClick={() => handleButtonClick()}>
+                                Buy Coin
+                            </button>
                         </div>
                         <div className={styles.info}>
                             <div className={styles.coin__heading}>
@@ -167,6 +150,7 @@ const Coin = () => {
                     </div>
                 </div>
             </div>
+            <AddModal active={activeModal} setActive={setActiveModal} coin={coin} />
         </div>
     ) : (
         <div>..isLoading</div>

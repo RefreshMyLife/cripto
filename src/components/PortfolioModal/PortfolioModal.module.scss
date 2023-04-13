@@ -1,15 +1,49 @@
+.modal {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
+
+    &__container {
+        color: #26272b;
+        padding: 20px;
+        border-radius: 12px;
+        background-color: white;
+
+        transform: scale(0.5);
+        transition: 0.4s all;
+        text-align: center;
+        font-size: 32px;
+        .active {
+            transform: scale(1);
+        }
+    }
+}
+.active {
+    opacity: 1;
+    pointer-events: all;
+    z-index: 3;
+}
+
 .coin_row {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     align-items: center;
     background-color: #26272b;
+    color: white;
     box-shadow: 0px 0px 12px #18191b;
     border-radius: 8px;
     margin: 2rem 1rem;
     padding: 0.7rem 1rem;
-    position: relative;
-}
-.coin_container {
     position: relative;
 }
 .change__percent_green {
@@ -17,22 +51,6 @@
 }
 .change__percent_red {
     color: red;
-}
-.coin_row:hover {
-    transform: scale(1.04);
-    transition: 0.3s ease-in-out;
-    cursor: pointer;
-}
-
-.symbol {
-    display: flex;
-    align-items: center;
-}
-
-@media screen and (max-width: 720px) {
-    .hide-mobile {
-        display: none;
-    }
 }
 .btn {
     text-align: center;
@@ -44,9 +62,9 @@
     justify-content: center;
     cursor: pointer;
     outline: none;
-    padding: 0.4rem 0.6rem;
+    padding: 0.4rem 1.6rem;
     border-radius: 12px;
-    font-size: 32px;
+    font-size: 62px;
     font-family: inherit;
     background: rgb(162, 162, 246);
     color: rgb(32, 32, 32);
@@ -65,30 +83,5 @@
         border-color: rgb(162, 162, 246);
         background: linear-gradient(rgba(rgb(162, 162, 246), 0.2), rgba(rgb(162, 162, 246), 0.3));
         color: rgb(162, 162, 246);
-    }
-}
-@media screen and (max-width: 1100px) {
-    .hide__laptop {
-        display: none;
-    }
-    .coin_row {
-        grid-template-columns: repeat(5, 1fr);
-    }
-}
-
-@media screen and (max-width: 720px) {
-    .hide__tablet {
-        display: none;
-    }
-    .coin_row {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-@media screen and (max-width: 500px) {
-    .hide__mobile {
-        display: none;
-    }
-    .heading {
-        grid-template-columns: repeat(3, 1fr);
     }
 }
