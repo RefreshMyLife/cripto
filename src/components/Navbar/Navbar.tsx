@@ -6,7 +6,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import styles from './Navbar.module.scss';
 import PortfolioModal from '../PortfolioModal/PortfolioModal';
 import { CoinContext } from '../../App';
-import { CoinInfo, ICoin } from '../../models/ICoin';
+import { ICoin } from '../../models/ICoin';
 import { getTotalPriceCoins } from '../utils/utils';
 
 const Navbar: FC = () => {
@@ -16,18 +16,12 @@ const Navbar: FC = () => {
     const { coins, totalPriceCoins, currentCoinData, removeCoinItem } = useContext(CoinContext);
     const totalPriceCurrentCoins = getTotalPriceCoins(currentCoinData.splice(0, 1));
     const changePercentPricePortfolio = useRef<number>(0);
-    changePercentPricePortfolio.current += !Number.isNaN(
-        (totalPriceCurrentCoins * 100) / totalPriceCoins,
-    )
-        ? (totalPriceCurrentCoins * 100) / totalPriceCoins
-        : 0;
 
-    console.log(totalPriceCurrentCoins, totalPriceCoins, changePercentPricePortfolio.current);
     const [size, setSize] = useState({
         width: 0,
         height: 0,
     });
-    const handleRemoveCoin = () => {
+    const handleRemoveCoinPercent = () => {
         if (!isFinite((removeCoinItem * 100) / totalPriceCoins)) {
             return (changePercentPricePortfolio.current = 0);
         }
@@ -36,12 +30,22 @@ const Navbar: FC = () => {
         )
             ? (removeCoinItem * 100) / totalPriceCoins
             : 0;
-        console.log(changePercentPricePortfolio.current);
     };
-
+    const handleAddCoinPercent = () => {
+        changePercentPricePortfolio.current += !Number.isNaN(
+            (totalPriceCurrentCoins * 100) / totalPriceCoins,
+        )
+            ? (totalPriceCurrentCoins * 100) / totalPriceCoins
+            : 0;
+    };
+    handleAddCoinPercent();
     useEffect(() => {
-        handleRemoveCoin();
-    }, [removeCoinItem]);
+        handleRemoveCoinPercent();
+    }, [removeCoinItem, totalPriceCoins]);
+    useEffect(() => {
+        handleAddCoinPercent();
+        console.log('teststtststs');
+    }, [totalPriceCoins]);
 
     useEffect(() => {
         const handleResize = () => {
